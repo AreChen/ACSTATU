@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<head>
+    <title>
+123
+    </title>
+</head>
+<body>
+    <H1 id="AA"></H1>    
+    <button onclick="onclick()">123</button>
+    <script>
+    const os = require('os');
+        function onclick(){
+            var a = os.freemem;
+            var AA = document.getElementById('AA');
+            AA.innerHTML = a;
+        }
+    </script>
+</body>

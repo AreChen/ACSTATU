@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AC.STATU</title>
+    <link href="css/buttons.css"  rel="stylesheet" type="text/css">
+    <style>
+        div{
+            border-radius: 40px;
+            background-color: white;
+            /*box-shadow: 0px 0px 10px 0px #72c0d8;*/
+            -webkit-animation-duration: 3s;
+            animation-duration: 3s;
+            -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+            -webkit-animation-name: glowing;
+            animation-name: glowing;
+            width: 70%;
+            position: relative;
+            /*z-index: -1;*/
+        }
+        h1{
+            font-size: 90%;
+            margin-left: 10%;
+            /*z-index: -1;*/
+        }
+        h2{
+            position: relative;
+            font-size: 90%;
+            margin-left: 10%;
+            /*z-index: -1;*/
+            top:-5px;
+        }
+        #xpos{
+            /*float: right;*/
+            position: relative;
+            top: -50px;
+            left:70%;
+            /*z-index: 1;*/
+        }
+    </style>
+    <script>
+        window.nodeRequire = require;
+        // delete window.require;
+        // delete window.exports;
+        delete window.module;
+    </script>
+    <script src="closeit.js"></script>
+</head>
+<body >
+<div style="-webkit-app-region: drag">
+    <h1 id="cpu"></h1>
+<!--    <br>-->
+    <h2 id="mem"></h2>
+</div>
+    <button  id="xpos" class="button-glow" onclick="CloseIt()" type="button">X</button>
+    <script>
+        const  os = require('os');
+        function getmem() {
+            var getTotalMem=os.totalmem();
+            var getLastMem=os.freemem();
+            var perUsedMem=1-(getLastMem/getTotalMem);
+            // alert(Math.floor(perUsedMem*100)+'%');
+            document.getElementById("mem").innerHTML = '内存负载：'+Math.floor(perUsedMem*100)+'%';
+        }
+
+        var perMemLoop = setInterval(function(){ getmem() }, 1000);
+
+        // function getcpu() {
+        //     var getTotalCpu=os.totalmem();
+        //     var getLastCpu=os.freemem();
+        //     var perUsedCpu=1-(getLastMem/getTotalMem);
+        //     // alert(Math.floor(perUsedMem*100)+'%');
+        //     document.getElementById("cpu").innerHTML = 'CPU负载：'+Math.floor(perUsedCpu*100)+'%';
+        // }
+        var  cpuStat = require('cpu-stat');
+        // cpuStat.usagePercent(function(err, percent, seconds) {
+        //     if (err) {
+        //         return console.log(err);
+        //     }
+        // }
+        //
+        //     alert(percent);
+        function  getcpu(){
+        cpuStat.usagePercent(function(err, percent, seconds) {
+            // if (err) {
+            //     return console.log(err);
+            // }
+            document.getElementById("cpu").innerHTML = 'CPU负载：'+Math.floor(percent)+'%';
+            //the percentage cpu usage over all cores
+            //the approximate number of seconds the sample was taken over
+            // console.log(seconds);
+        })};
+
+        // function getcpu() {
+        //     percent  =  cpuStat.usagePercent[0];
+        //     document.getElementById("cpu").innerHTML = 'CPU负载：'+percent+'%';
+        // }
+        var perCpuLoop = setInterval(function(){ getcpu() }, 1000);
+    </script>
+
+</body>
+</html>
