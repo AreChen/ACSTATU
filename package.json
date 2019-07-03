@@ -13,9 +13,7 @@
     "electron": "^5.0.6"
   },
   "dependencies": {
-    "mem-stat": "^1.0.5",
-    "node-os-utils": "^1.0.7",
-    "os": "^0.1.1",
+    "cpu-stat": "^2.0.1",
     "os-utils": "0.0.14"
   }
 }
