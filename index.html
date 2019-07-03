@@ -55,16 +55,18 @@
 </div>
     <button  id="xpos" class="button-glow" onclick="CloseIt()" type="button">X</button>
     <script>
-        const  os = require('os');
-        function getmem() {
-            var getTotalMem=os.totalmem();
-            var getLastMem=os.freemem();
-            var perUsedMem=1-(getLastMem/getTotalMem);
-            // alert(Math.floor(perUsedMem*100)+'%');
-            document.getElementById("mem").innerHTML = '内存负载：'+Math.floor(perUsedMem*100)+'%';
-        }
+        // const  os = require('os');
+        //
+        // function getmem() {
+        //     var getTotalMem=os.totalmem();
+        //     var getLastMem=os.freemem();
+        //
+        //     var perUsedMem=1-(getLastMem/getTotalMem);
+        //     // alert(Math.floor(perUsedMem*100)+'%');
+        //     document.getElementById("mem").innerHTML = '内存负载：'+Math.floor(perUsedMem*100)+'%';
+        // }
 
-        var perMemLoop = setInterval(function(){ getmem() }, 1000);
+        // var perMemLoop = setInterval(function(){ getmem() }, 1000);
 
         // function getcpu() {
         //     var getTotalCpu=os.totalmem();
@@ -97,7 +99,24 @@
         //     document.getElementById("cpu").innerHTML = 'CPU负载：'+percent+'%';
         // }
         var perCpuLoop = setInterval(function(){ getcpu() }, 1000);
+
+
     </script>
+<script>
+    var xmem = require('os-utils');
+
+function getmem() {
+    var PerUsedMem = 1-xmem.freemem()/xmem.totalmem();
+    document.getElementById("mem").innerHTML = '内存负载：'+Math.floor(PerUsedMem*100)+'%';
+}
+
+    // osx.cpuUsage(function(v){
+    //     console.log( 'CPU Usage (%): ' + v );
+    // });
+
+    var perMemLoop = setInterval(function(){ getmem() }, 1000);
+    alert(PerUsedMem)
+</script>
 
 </body>
 </html>
